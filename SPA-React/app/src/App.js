@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
+
+
+//Import components
+import NotImplemented from './components/NotImplemented';
+import HolaIndex from './components/HolaIndex';
+import HolaVideos from './components/HolaVideos';
+import UsuariosOutlet from './components/UsuariosOutlet';
+
+
 
 function App() {
+
+  const isAuth = false;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<HolaIndex />} />
+
+          <Route path="/usuarios" element={isAuth ? <Navigate to="/" /> : <UsuariosOutlet />} >
+            <Route path="registro" element={<NotImplemented />} />
+            <Route path="login" element={<NotImplemented />} />
+            <Route path=":id" element={<NotImplemented />} />
+            <Route path=":id/videos" element={<NotImplemented />} />
+          </Route>
+
+          <Route path="/videos" > 
+            <Route path="otro" element={ <NotImplemented />} />
+            <Route path="nuevo" element={<NotImplemented />} />
+            <Route path=":id" element={<NotImplemented />} />
+          </Route>
+        </Routes>
+      </Router>
+    </>
   );
 }
 
