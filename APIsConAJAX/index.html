@@ -7,6 +7,12 @@
     <title>Consumir APIs con AJAX</title>
 </head>
 <body>
-    <script src="./scripts/first-sc.js"></script>
+    <h1>Subir archivos con AJAX</h1>
+    <form action="http://localhost:8080/files" id="form" method="post" enctype="multipart/form-data">
+        <input type="file" name="avatar" id="avatar">
+        <input type="submit" value="Enviar">
+    </form>
+    <!-- <script src="./scripts/first-sc.js"></script> -->
+    <script src="./scripts/post-sc.js"></script>
 </body>
 </html>
