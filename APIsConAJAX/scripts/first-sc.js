@@ -1,5 +1,7 @@
 
-const query = fetch('https://jsonplaceholder.typicode.com/posts').then(
+const query = fetch('https://jsonplaceholder.typicode.com/posts');
+
+console.log(query.then(
     function(response){
         response.json().then(
             function(data){
@@ -7,5 +9,4 @@ const query = fetch('https://jsonplaceholder.typicode.com/posts').then(
             }
         )
     }
-);
-console.log(query)
+).catch(err => console.log(err)));
