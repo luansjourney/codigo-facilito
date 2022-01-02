@@ -3,7 +3,7 @@ import React from 'react'
 function Hola() {
     return (
         <p>
-            Hola
+            OAAA!
         </p>
     )
 }
