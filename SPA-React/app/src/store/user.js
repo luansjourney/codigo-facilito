@@ -2,11 +2,27 @@ import {
     createSlice,
     createAsyncThunk
 } from '@reduxjs/toolkit';
+import Axios from 'axios';
+import apiConfig from '../config/api';
+
 
 export const signUp = createAsyncThunk('user/signUp', async ({credentials}) => {
     // ASYNC operation
+    let response = await Axios.post(`${apiConfig.domain}/users`,{
+        user: credentials
+    })
 
-    return credentials;
+
+    return response.data.user;
+})
+
+export const signIn = createAsyncThunk('user/signIn', async ({credentials}) => {
+    // ASYNC operation
+    let response = await Axios.post(`${apiConfig.domain}/users/signin`,{
+        user: credentials
+    })
+
+    return response.data.user;
 })
 
 let userSlice = createSlice({
@@ -16,9 +32,9 @@ let userSlice = createSlice({
         staus: ''
     },
     reducers: {
-        signIn: (state, action) => {
+       /*  signIn: (state, action) => {
             state.user = action.payload;
-        },
+        }, */
         logOut: (state) => {
             state.user = null;
         }
@@ -32,10 +48,19 @@ let userSlice = createSlice({
         },
         [signUp.rejected]: (state) => {
             state.status = 'failed';
+        },
+        [signIn.pending]: (state) => {
+            state.status = 'loading';
+        },
+        [signIn.fullfilled]: (state, action) => {
+            state.user = action.payload;
+        },
+        [signIn.rejected]: (state) => {
+            state.status = 'failed';
         }
     }
 });
 
-export const { signIn, logOut} = userSlice.actions;
+export const { logOut} = userSlice.actions;
 
 export default userSlice.reducer;

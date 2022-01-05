@@ -1,15 +1,16 @@
-import React from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Outlet } from 'react-router-dom';
 
 function UsuariosOutlet() {
-    let navigate = useNavigate();
-    let redirect = ()=> {
-        navigate('/');
-    }
+   
+    let user = useSelector(state => state.user.user);
 
     return (
         <>
-            <button onClick={redirect}>Ir al Home</button>
+        {
+            user && <button>Cerrar sesión</button>
+        }
             <Outlet />    
         </>
     )

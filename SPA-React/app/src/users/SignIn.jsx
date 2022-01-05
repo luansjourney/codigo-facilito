@@ -1,40 +1,28 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { logOut, signIn, signUp } from '../store/user';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { signIn } from '../store/user';
 
-function SignIn(props) {
+let SignIn = (props) => {
 
     let dispatch = useDispatch();
 
-    let user = useSelector(state => state.user.user);
-    console.log(user);
+    const { register, handleSubmit} = useForm();
 
-    let doSignIn = () => {
+    let onSubmit = (data) => {
         dispatch(
-            signUp({
-                credentials:{
-                    email: 'luan@desouza.eth',
-                    jwtToken: '232jadjasd2131'
-                }
-            })
+            signIn(
+            {credentials: data}
+            )
         )
     }
-
-    let doLogOut = () => {
-        dispatch(
-            logOut()
-        )
-    }
-
+    
     return (
-        <>
-            {
-                user ?
-                <button onClick={doLogOut}>Cerrar Sesion</button>
-                :
-            <button onClick={doSignIn}>Ingresar</button>
-            }
-        </>
+           <form onSubmit={handleSubmit( onSubmit )}>
+               <input type="email" name="email" ref={register} placeholder='Correo electronico'/>
+               <input type="password" name="password" ref={register} placeholder='Contrasena'/>
+               <input type="submit" value="Enviar" />
+           </form>
     )
 }
 
